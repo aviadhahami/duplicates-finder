@@ -4,13 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node dist/index.js",
-    "dev": "npm run build && NODE_ENV=development node dist/index.js",
-    "dev:watch": "nodemon",
-    "build": "npm run clean && tsc",
+    "postinstall": "npm run build",
     "clean": "rimraf ./dist",
+    "build": "npm run clean && tsc",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "dev": "npm run build && node dist/index.js",
+    "dev:watch": "nodemon",
+    "start": "node dist/index.js"
   },
   "keywords": [],
   "author": "",
