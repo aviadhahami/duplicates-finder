@@ -1,4 +1,4 @@
-type DuplicateResult = {
+export type DuplicateResult = {
     name: string,
     paths: string[]
 }

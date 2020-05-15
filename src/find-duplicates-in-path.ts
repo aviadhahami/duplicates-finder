@@ -1,7 +1,6 @@
 import getAllFiles from 'get-all-files'
-import * as path from 'path'
-
-const getFileName = p => path.basename(p);
+import {DuplicateResult} from "./types/types";
+import {getFileName} from "./file-helpers";
 
 /**
  * Assumption is that all paths exist;
