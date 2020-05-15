@@ -21,7 +21,9 @@ function findDuplicatesInPath(root: string): DuplicateResult[] {
         }
     });
 
-    return [...cache].map(([name, paths]) => ({name, paths})) as DuplicateResult[];
+    return [...cache]
+        .map(([name, paths]) => ({name, paths}))
+        .filter(({paths}) => paths.length > 1) as DuplicateResult[];
 }
 
 export {

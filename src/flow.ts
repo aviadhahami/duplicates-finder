@@ -5,6 +5,7 @@ import {DuplicateResult} from "./types/types";
 import {getFileExtension} from "./file-helpers";
 import {getArrayDiff} from "./get-array-diff";
 import {safeGuardDelete} from "./safe-guard-delete";
+import {findDuplicatesInPath} from "./find-duplicates-in-path";
 
 export async function getRootDirectory() {
     const root = await prompts({
@@ -46,7 +47,7 @@ export async function deleteFileAtPath(paths: string[]): Promise<undefined> {
     paths.forEach(p => {
         try {
             if (shouldDelete) {
-                fs.unlinkSync(p)
+                fs.unlinkSync(p);
             } else {
                 console.log('pretending to unlink', p);
             }
@@ -56,4 +57,15 @@ export async function deleteFileAtPath(paths: string[]): Promise<undefined> {
         }
     })
     return;
+}
+
+export const run = async() => {
+    const root = await getRootDirectory();
+    console.log('Finding dupes in path....');
+    const dupes = findDuplicatesInPath(root);
+    console.log('We will now iterate over the results, pay attention!');
+    const pathsToRemove = await getPathsToRemove(dupes);
+    console.log(`Will now remove ${pathsToRemove.length} paths`);
+    await deleteFileAtPath(pathsToRemove);
+    console.log('Done! exiting');
 }
