@@ -4,23 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node dist/index.js",
     "dev": "nodemon",
-    "build": "tsc",
+    "build": "npm run clean && tsc",
+    "clean": "rimraf ./dist",
     "test": "jest",
     "test:watch": "jest --watch"
-  },
-  "nodemonConfig": {
-    "ignore": [
-      "**/*.test.ts",
-      "**/*.spec.ts",
-      ".git",
-      "node_modules"
-    ],
-    "watch": [
-      "src"
-    ],
-    "exec": "npm start",
-    "ext": "ts"
   },
   "keywords": [],
   "author": "",
@@ -28,9 +17,16 @@
   "devDependencies": {
     "@types/jest": "^25.2.2",
     "@types/node": "^14.0.1",
+    "@types/prompts": "^2.0.8",
     "jest": "^26.0.1",
     "nodemon": "^2.0.4",
+    "rimraf": "^3.0.2",
     "ts-jest": "^25.5.1",
+    "ts-node": "^8.10.1",
     "typescript": "^3.9.2"
+  },
+  "dependencies": {
+    "get-all-files": "^2.0.0",
+    "prompts": "^2.3.2"
   }
 }
