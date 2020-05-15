@@ -4,6 +4,7 @@ import {isDirectory} from "./fs-helpers";
 import {DuplicateResult} from "./types/types";
 import {getFileExtension} from "./file-helpers";
 import {getArrayDiff} from "./get-array-diff";
+import {safeGuardDelete} from "./safe-guard-delete";
 
 export async function getRootDirectory() {
     const root = await prompts({
@@ -37,25 +38,6 @@ export async function getPathsToRemove(dupes: DuplicateResult[]): Promise<string
         badPaths.push(...diff);
     }
     return badPaths;
-}
-
-async function safeGuardDelete() {
-// Anything but dev or test
-    const shouldDelete = !['development', 'test'].includes(process.env.NODE_ENV);
-    let actuallyDelete = false;
-    if (shouldDelete) {
-        // Activate safe guard
-        const {confirm = false} = await prompts({
-            type: 'confirm',
-            name: 'confirm',
-            message: `SAFE GUARD! are you sure you'd like to ACTUALLY delete files?! [PRODUCTION MODE]`,
-            initial: false
-        });
-        if (confirm) {
-            actuallyDelete = true;
-        }
-    }
-    return actuallyDelete;
 }
 
 export async function deleteFileAtPath(paths: string[]): Promise<undefined> {
